@@ -10,6 +10,8 @@ import Contact from "./pages/contact/Contact";
 import Footer from "./components/Footer/Footer";
 import LoginPopup from "./components/LoginPopup/LoginPopup";
 import Dishes from "./components/dishes_new/Dishes";
+import SignIn from "./components/SignIn/SignIn";
+import SignUp from "./components/Signup/SignUp";
 
 const App = () => {
 
@@ -22,8 +24,10 @@ const App = () => {
         <Navbar setShowLogin = {setShowLogin} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/dishes" element={<Dishes />} />
+          <Route path="/menu" element={<Dishes />} />
           <Route path="/search" element={<Search/>} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
        
           <Route path="/cart" element={<Cart />} />
           <Route path="/order" element={<PlaceOrder />} />

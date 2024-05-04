@@ -1,22 +1,38 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./FoodDisplay.css";
 import FoodItem from "../FoodItem/FoodItem";
 import { StoreContext } from "../../context/StoreContext";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const FoodDisplay = ({ category }) => {
+  const [dishes, setDishes] = useState([])
   const { food_list } = useContext(StoreContext);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(5);
 const navigate = useNavigate()
 
 
+const fetchDishes = () =>  {
+  axios.get("http://localhost:4000/yantra")
+  .then((res)=> {
+    console.log(res.data)
+    setDishes(res.data)
+  })
+  .catch((error)=> {
+    console.log(error)
+  })
+ }
+ useEffect(()=>{
+fetchDishes()
+ },[])
+
 
 
   // Logic for displaying products
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = food_list.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentProducts = dishes.slice(indexOfFirstProduct, indexOfLastProduct);
 
   // Change page
   // const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -40,7 +56,7 @@ const navigate = useNavigate()
           }
           return null;
         })}
-     <Link to={"/dishes"}><span className="explore_more" onClick={navigate("/dishes")}>View More...</span></Link>   
+     <Link to={"/menu"}><span className="explore_more" onClick={()=>navigate("/menu")}>View More...</span></Link>   
       </div>
     
     </div>

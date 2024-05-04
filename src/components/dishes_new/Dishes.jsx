@@ -7,6 +7,7 @@ import { Fragment, useState } from 'react'
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
+import axios from 'axios';
 
 
 
@@ -21,9 +22,22 @@ export default function Dishes() {
   const { food_list } = useContext(StoreContext);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
   const [currentPage, setCurrentPage] = useState(1);
-  const [dishes, setDishes] = useState(food_list);
+  const [dishes, setDishes] = useState([]);
   const [productsPerPage] = useState(10);
 
+   const fetchDishes = () =>  {
+    axios.get("http://localhost:4000/yantra")
+    .then((res)=> {
+      console.log(res.data)
+      setDishes(res.data)
+    })
+    .catch((error)=> {
+      console.log(error)
+    })
+   }
+   useEffect(()=>{
+fetchDishes()
+   },[])
   // Filter by category
   // const filteredProducts = selectedCategory
   //   ? food_list.filter((item) => item.category === selectedCategory)
@@ -83,7 +97,7 @@ const sortProduct = dishes.filter((item)=> item.veg == props)
   useEffect(() => {
     // setDishes(food_list);
     scrollToTop();
-  }, [food_list,handleSort,dishes ]);
+  }, []);
 
 console.log("cat",selectedCategory)
 console.log("sort",selectedSortOption)
@@ -311,7 +325,7 @@ console.log("sort",selectedSortOption)
                 {/* Your content */}
                 <div className="food-display-list">
             {dishes.map((item, index) => (
-              <FoodItem key={index} id={item._id} name={item.name} description={item.description} price={item.price} image={item.image} />
+              <FoodItem key={index} id={item._id} title={item.title} description={item.description} price={item.price} image={item.image} />
             ))}
           </div>
           {/* Pagination */}

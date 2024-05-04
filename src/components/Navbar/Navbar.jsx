@@ -1,21 +1,24 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useContext, useEffect, useState } from "react";
 import "./Navbar.css";
 import { assets } from "../../assets/assets";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
+import { FaCartShopping } from "react-icons/fa6";
 
+// eslint-disable-next-line react/prop-types
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
+const navigate = useNavigate()
 
 
-
-  useEffect(()=> {
- /* scroll to top function */
- window.scrollTo({
-  top: 0,
-  behavior: "smooth",
-});
-  },[])
+useEffect(()=> {
+  /* scroll to top function */
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+},[])
 
   const { getTotalCartAmount } = useContext(StoreContext);
 
@@ -32,19 +35,19 @@ const Navbar = ({ setShowLogin }) => {
         >
           <a href="#">Home</a>
         </Link>
-        <a
-          href="#explore-menu"
+        {/* <Link
+          href=""
           onClick={() => setMenu("menu")}
           className={menu === "menu" ? "active" : ""}
         >
           Menu
-        </a>
+        </Link> */}
         <Link
-          to="/dishes"
+          to="/menu"
           onClick={() => setMenu("dishes")}
-          className={menu === "dishes" ? "active" : ""}
+          className={menu === "menu" ? "active" : ""}
         >
-          <a>Dishes</a>
+          <a>Menu</a>
         </Link>
 
         <a
@@ -55,7 +58,7 @@ const Navbar = ({ setShowLogin }) => {
           Mobile-app
         </a>
         <a
-          href="/contact"
+          href=""
           onClick={() => setMenu("contact-us")}
           className={menu === "contact-us" ? "active" : ""}
         >
@@ -70,25 +73,14 @@ const Navbar = ({ setShowLogin }) => {
         <div className="navbar-search-icon">
           <Link to="/cart" onClick={() => setMenu("cart")}
           className={menu === "cart" ? "active" : ""}>
-            <img src={assets.basket_icon} alt="" />
+            <FaCartShopping className="w-[32px]" />
           </Link>
           <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
         </div>
-        <button onClick={() => setShowLogin(true)}>Sign in</button>
+        <button onClick={()=> navigate("/signin")}>Sign in</button>
       </div>
     </div>
   );
 };
 
 export default Navbar;
-
-
-
-
-
-
-
-
-
-
-

@@ -1,6 +1,6 @@
 import basket_icon from './basket_icon.png'
-import logo from './logo.png'
-import header_img from './header_img.jpg'
+import logo from './Group 47.jpeg'
+// import header_img from './2.jpeg'
 import search_icon from './search_icon.png'
 import menu_1 from './menu_1.png'
 import menu_2 from './menu_2.png'
@@ -63,7 +63,7 @@ import parcel_icon from './parcel_icon.png'
 export const assets = {
     logo,
     basket_icon,
-    header_img,
+  
     search_icon,
     rating_starts,
     add_icon_green,
@@ -81,6 +81,7 @@ export const assets = {
     bag_icon,
     parcel_icon
 }
+
 
 export const menu_list = [
     {
@@ -115,6 +116,9 @@ export const menu_list = [
         menu_name: "Noodles",
         menu_image: menu_8
     }]
+
+
+
 
 export const food_list = [
     {

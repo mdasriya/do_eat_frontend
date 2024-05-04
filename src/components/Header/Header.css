@@ -1,17 +1,20 @@
-.header {
+/* import Image1 from '../../assets/header.jpg'; */
+
+/* .header {
   height: 100vh;
-  background: url("https://github.com/adeshdatir99ad/foodorder/blob/main/public/header_img.jpg?raw=true");
-  background-size: cover;
-}
+  background: url("https://i.ibb.co/whfDJnp/top-view-yummy-eggplant-rolls-cooked-dish-with-potatoes-seasonings-dark-surface-dish-meal-dinner-foo.jpg");
+
+} */
 .header-contents {
   position: absolute;
+  
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: center;
   gap: 0.9vw;
-  max-width: 35%;
+  /* max-width: 25%; */
   bottom: 9%;
-  left: 5vw;
+  /* left: 5vw; */
   animation: fadeIn 3s;
 }
 .header-contents h2 {
@@ -19,10 +22,10 @@
   color: white;
   font-size: max(4.5vw, 22px);
 }
-.header-contents p {
+/* .header-contents p {
   color: white;
   font-size: 1.2vw;
-}
+} */
 .header-contents button {
   border: none;
   color: #747474;
@@ -44,7 +47,7 @@
     background-position: bottom;
   }
   .header-contents {
-    max-width: 45%;
+    /* max-width: 45%; */
     gap: 1.3vw;
   }
 }
@@ -55,7 +58,7 @@
     left: 5vw;
   }
   .header-contents h2 {
-    font-size: max(4.5vw, 15px);
+    font-size: max(4.5vw, 30px);
   }
   .header-contents p {
     display: none;
