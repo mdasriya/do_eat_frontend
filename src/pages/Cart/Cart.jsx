@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Cart.css";
-import { StoreContext } from "../../context/StoreContext";
+// import { StoreContext } from "../../context/StoreContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -22,8 +22,8 @@ const Cart = () => {
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState(initialform)
   const [data, setData] = useState([]);
-  const { cartItems, food_list, removeFromCart, getTotalCartAmount } =
-    useContext(StoreContext);
+  // const { cartItems, food_list, removeFromCart, getTotalCartAmount } =
+  //   useContext(StoreContext);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const totalPrice = data.reduce(
