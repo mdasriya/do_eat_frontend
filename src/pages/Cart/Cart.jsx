@@ -35,7 +35,7 @@ const Cart = () => {
 
   const getCartProduct = () => {
     return axios
-      .get("http://localhost:4000/cart", {
+      .get("https://light-foal-loafers.cyclic.app/cart", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -82,7 +82,7 @@ const Cart = () => {
   const handleDelete = async (id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:4000/cart/delete/${id}`,
+        `https://light-foal-loafers.cyclic.app/cart/delete/${id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -113,7 +113,7 @@ const Cart = () => {
     let finalData = {
       ...formData,data
     }
-   const res = await axios.post("http://localhost:4000/order/create", finalData)
+   const res = await axios.post("https://light-foal-loafers.cyclic.app/order/create", finalData)
   
     if(res.data.state){
       alert(res.data.msg)
@@ -128,7 +128,7 @@ const Cart = () => {
 // cart deleted function 
 const handledeleteCartData = async (data) => {
   return axios
-    .post('http://localhost:4000/cart/order/delete', data, {
+    .post('https://light-foal-loafers.cyclic.app/cart/order/delete', data, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -160,16 +160,16 @@ const handledeleteCartData = async (data) => {
     <>
       {/* modal for check out form start*/}
       {open && (
-        <div className="absolute w-[500px] h-auto p-4 z-1 border-2 border-gray-200 top-[25%] left-[35%] bg-gray-200">
-          <div className="">
+        <div className="modal_outer absolute lg:w-[500px] h-auto p-4 z-1  top-[25%] left-[35%] bg-gray-200">
+          <div className="modal_outer_1">
             <div className="">
               <div className="flex justify-between">
-              <p className="text-xl">Delivery Information</p>
+              <p className="delivery text-xl">Delivery Information</p>
 <button className="absolute left-[97%] top-0 " onClick={()=>setOpen(false)}>
   x
 </button>
               </div>
-              <div className="flex gap-2">
+              <div className="first_input flex gap-2">
                 <input
                   type="text"
                   name="firstName"
@@ -299,12 +299,13 @@ const handledeleteCartData = async (data) => {
                     <button
                       className="border-2 px-2"
                       onClick={() => handleQuantityDecrement(item._id)}
+                    disabled={item.quantity === 1}
                     >
                       -
                     </button>
                     <p>{item.quantity}</p>
                     <button
-                      className="border-2 px-2"
+                      className="border-2 px-2 disabled:opacity-50"
                       onClick={() => handleQuantityIncrement(item._id)}
                     >
                       +

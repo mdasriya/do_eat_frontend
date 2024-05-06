@@ -2,12 +2,14 @@ import React, { useContext, useEffect } from 'react';
 import '../FoodDisplay/FoodDisplay.css';
 import FoodItem from '../FoodItem/FoodItem';
 import { StoreContext } from '../../context/StoreContext';
-
+import "./Dishes.css";
+import { menu_list } from "../../assets/assets"
 import { Fragment, useState } from 'react'
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 import axios from 'axios';
+
 
 
 
@@ -17,27 +19,33 @@ function classNames(...classes) {
 }
 
 export default function Dishes() {
+  const [fetchLoading, setFetchLoading] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedSortOption, setSelectedSortOption] = useState('');
+  // const [selectedSortOption, setSelectedSortOption] = useState('');
   const { food_list } = useContext(StoreContext);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
   const [currentPage, setCurrentPage] = useState(1);
   const [dishes, setDishes] = useState([]);
+  const [temp, setTemp] = useState([]);
   const [productsPerPage] = useState(10);
+  const [category, setCategory] = useState("All");
+
 
    const fetchDishes = () =>  {
-    axios.get("http://localhost:4000/yantra")
+    setFetchLoading(true)
+    axios.get("https://light-foal-loafers.cyclic.app/yantra")
     .then((res)=> {
       console.log(res.data)
       setDishes(res.data)
+      setTemp(res.data)
+      setFetchLoading(false)
     })
     .catch((error)=> {
       console.log(error)
+      setFetchLoading(false)
     })
    }
-   useEffect(()=>{
-fetchDishes()
-   },[])
+  
   // Filter by category
   // const filteredProducts = selectedCategory
   //   ? food_list.filter((item) => item.category === selectedCategory)
@@ -94,13 +102,30 @@ const sortProduct = dishes.filter((item)=> item.veg == props)
   };
 
 
+const handleCategoryFilter = (props) => {
+  // category filtered products
+ console.log("props", props)
+ const sortProduct = temp.filter((item)=> item.category == props.toLowerCase())
+   console.log("sort",sortProduct)
+   setDishes(sortProduct)
+}
+
+const handleResetFilter = () => {
+fetchDishes()
+}
+
+
   useEffect(() => {
     // setDishes(food_list);
     scrollToTop();
   }, []);
 
-console.log("cat",selectedCategory)
-console.log("sort",selectedSortOption)
+  useEffect(()=>{
+    fetchDishes()
+       },[])
+
+console.log("cat",category)
+// console.log("sort",selectedSortOption)
 
 
   return (
@@ -148,60 +173,74 @@ console.log("sort",selectedSortOption)
                   <form className="mt-4 border-t border-gray-200">
                    
 
-                    {filters.map((section) => (
-                      <Disclosure as="div" key={section.id} className="border-t border-gray-200 px-4 py-6">
-                        {({ open }) => (
-                          <>
-                            <h3 className="-mx-2 -my-3 flow-root">
-                              <Disclosure.Button className="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
-                                <span className="font-medium text-gray-900">{section.name}</span>
-                                <span className="ml-6 flex items-center">
-                                  {open ? (
-                                    <MinusIcon className="h-5 w-5" aria-hidden="true" />
-                                  ) : (
-                                    <PlusIcon className="h-5 w-5" aria-hidden="true" />
-                                  )}
-                                </span>
-                              </Disclosure.Button>
-                            </h3>
-                            <Disclosure.Panel className="pt-6">
-                              <div className="space-y-6">
-                                {section.options.map((option, optionIdx) => (
-                                  <div key={option.value} className="flex items-center">
-                                    <input
-                                      id={`filter-mobile-${section.id}-${optionIdx}`}
-                                      name={`${section.id}[]`}
-                                      defaultValue={option.value}
-                                      type="checkbox"
-                                      checked={selectedCategory === option.value}
-                                      onChange={() => setSelectedCategory(option.value)}
-                                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                    />
-                                    <label
-                                      htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                                      className="ml-3 min-w-0 flex-1 text-gray-500 label"
-                                     
-                                    >
-                                      {option.label}
-                                    </label>
-                                  </div>
-                                ))}
-                              </div>
-                            </Disclosure.Panel>
-                          </>
-                        )}
-                      </Disclosure>
-                    ))}
-                  </form>
+                   {filters.map((section) => (
+                     <Disclosure as="div" key={section.id} className="border-t border-gray-200 px-4 py-6">
+                       {({ open }) => (
+                         <>
+                           <h3 className="-mx-2 -my-3 flow-root">
+                             <Disclosure.Button className="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
+                               <span className="font-medium text-gray-900">{section.name}</span>
+                               <span className="ml-6 flex items-center">
+                                 {open ? (
+                                   <MinusIcon className="h-5 w-5" aria-hidden="true" />
+                                 ) : (
+                                   <PlusIcon className="h-5 w-5" aria-hidden="true" />
+                                 )}
+                               </span>
+                             </Disclosure.Button>
+                           </h3>
+                           <Disclosure.Panel className="pt-6">
+                             <div className="space-y-6">
+                               {temp.map((option, optionIdx) => (
+                                 <div key={option._id} className="flex items-center">
+                                   <input
+                                     id={`filter-mobile-${option.id}-${optionIdx}`}
+                                     name={`${option.id}[]`}
+                                     defaultValue={option.category}
+                                     type="checkbox"
+                                     checked={selectedCategory === option.category}
+                                     onChange={() => setSelectedCategory(option.category)}
+                                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                   />
+                                   <label
+                                     htmlFor={`filter-mobile-${option._id}-${optionIdx}`}
+                                     className="ml-3 min-w-0 flex-1 text-gray-500 label"
+                                    
+                                   >
+                                     {option.category}
+                                   </label>
+                                 </div>
+                               ))}
+                             </div>
+                           </Disclosure.Panel>
+                         </>
+                       )}
+                     </Disclosure>
+                   ))}
+                 </form>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
           </Dialog>
         </Transition.Root>
+        <div className="explore-menu -mt-16" id="explore-menu">
+      <h1 className='text-2xl'>Explore our menu</h1>
+     
+      <div className="explore-menu-list">
+        {menu_list.map((item, index) => {
+          return (
+            <div onClick={()=>handleCategoryFilter(item.menu_name)} key={index} className="explore-menu-list-item">
+              <img className={category===item.menu_name?"active":""} src={item.menu_image} alt="" />
+              <p>{item.menu_name}</p>
+            </div>
+          );
+        })}
+      </div>
 
-        <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    </div>
+        <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 -mt-16">
           <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">New Arrivals</h1>
 
             <div className="flex items-center">
               <Menu as="div" className="relative inline-block text-left">
@@ -213,6 +252,7 @@ console.log("sort",selectedSortOption)
                       aria-hidden="true"
                     />
                   </Menu.Button>
+               {fetchLoading ?  <button  className='border-2 rounded-xl border-orange-500 p-2 ml-2 bg-orange-500 font-bold text-white'>loading...</button> :  <button onClick={handleResetFilter} className='border-2 rounded-xl border-orange-500 p-2 ml-2 bg-orange-500 font-bold text-white'>Reset Filter</button> }  
                 </div>
 
                 <Transition
@@ -248,18 +288,18 @@ console.log("sort",selectedSortOption)
                 </Transition>
               </Menu>
 
-              <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
+              {/* <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
                 <span className="sr-only">View grid</span>
                 <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
-              </button>
-              <button
+              </button> */}
+              {/* <button
                 type="button"
                 className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
                 onClick={() => setMobileFiltersOpen(true)}
               >
                 <span className="sr-only">Filters</span>
                 <FunnelIcon className="h-5 w-5" aria-hidden="true" />
-              </button>
+              </button> */}
             </div>
           </div>
 
@@ -325,7 +365,9 @@ console.log("sort",selectedSortOption)
                 {/* Your content */}
                 <div className="food-display-list">
             {dishes.map((item, index) => (
-              <FoodItem key={index} id={item._id} title={item.title} description={item.description} price={item.price} image={item.image} />
+            <>
+         {dishes.length>0 ? <FoodItem key={index} id={item._id} title={item.title} description={item.description} price={item.price} image={item.image} /> : "No Dishes Found"}   
+            </>
             ))}
           </div>
           {/* Pagination */}

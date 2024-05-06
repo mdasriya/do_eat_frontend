@@ -99,4 +99,22 @@
     .cart-promocode{
         justify-content: start;
     }
+    .modal_outer{
+margin-left: -120px;
+border: 2px solid blue;
+width: 360px;
+    }
+.modal_outer_1{
+    border: 2px solid red;
 }
+
+
+    .delivery{
+        margin-left: 70px;
+    }
+    .first_input{
+        display: flex;
+        flex-direction: column;
+    }
+}
+

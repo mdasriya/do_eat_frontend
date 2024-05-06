@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 
 export default function SignIn() {
@@ -12,26 +13,26 @@ export default function SignIn() {
 
     const loginSubmit = (e) => {
         if (!email || !pass) {
-          alert('input field is required.');
+          toast.error("input field is required")
           return;
         }
     
         e.preventDefault()
       
         const data = { email, pass }
-        axios.post("http://localhost:4000/user/login", data)
+        axios.post("https://light-foal-loafers.cyclic.app/user/login", data)
           .then(res => {
            
             localStorage.setItem("token", res.data.token)
-           alert(res.data.msg)
+            toast.success(res.data.msg)
             if (res.data.token) {
               localStorage.setItem("firstname", res.data.username)
               location.state ? navigate(location.state, { replace: true }) : navigate("/")
             }
           }).catch((error) => {
             console.log(error)
-            alert("Unable to Login try After Sometime")
-    
+            toast.error("Unable to Login try After Sometime")
+            // toast.error("input field is required")
           }).finally(() => {
             setEmail("")
             setPass("")
@@ -45,11 +46,11 @@ export default function SignIn() {
        
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img
+            {/* <img
               className="mx-auto h-10 w-auto"
               src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
               alt="Your Company"
-            />
+            /> */}
             <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
               Sign in to your account
             </h2>

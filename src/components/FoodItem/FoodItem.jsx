@@ -3,10 +3,12 @@ import React, { useContext } from "react";
 import "./FoodItem.css";
 import { assets } from "../../assets/assets";
 import { StoreContext } from "../../context/StoreContext";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 
-const FoodItem = ({ id, title, price, description, image }) => {
-  const { cartItems, addToCart, removeFromCart } = useContext(StoreContext);
+const FoodItem = ({ id, title, price, description, image,category }) => {
+  // const { cartItems, addToCart, removeFromCart } = useContext(StoreContext);
 
   // const handleAddToCart = (e) => {
   //   e.preventDefault(); // Prevent default behavior
@@ -39,7 +41,7 @@ const FoodItem = ({ id, title, price, description, image }) => {
     };
     try {
       const response = await axios.post(
-        'http://localhost:4000/cart/create',
+        'https://light-foal-loafers.cyclic.app/cart/create',
         finalData,
         {
           headers: {
@@ -50,14 +52,15 @@ const FoodItem = ({ id, title, price, description, image }) => {
       );
 
       if (response.data.state) {
-       alert("product is added in cart")
+        toast.success("product is added in cart")
         // onClose();
         // toggleTheme()
       } else {
-      alert("product is Already in your cart")
+        toast.error("product is Already in your cart")
       }
     } catch (error) {
      console.log("error",error)
+
     }
   };
 
@@ -65,7 +68,7 @@ const FoodItem = ({ id, title, price, description, image }) => {
   return (
     <div className="food-item">
       <div className="food-item-img-container">
-        <img className="food-item-image" src={image} alt="" />
+        <img className="food-item-image"  src={image} alt="" />
         {/* {!cartItems[id] ? (
           <img
             className="add"
@@ -96,6 +99,7 @@ const FoodItem = ({ id, title, price, description, image }) => {
         </div>
         <p className="food-item-desc">{description}</p>
         <p className="food-item-price">₹{price}</p>
+        <p className="food-item-price">{category}</p>
         <div className="text-center"><button className="border-2 border-black bg-black text-white p-1 border-r-10" onClick={handleCartData}>Add To Cart</button></div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import basket_icon from './basket_icon.png'
-import logo from './Group 47.jpeg'
+import logo from './Group 47.png'
 // import header_img from './2.jpeg'
 import search_icon from './search_icon.png'
 import menu_1 from './menu_1.png'
@@ -85,36 +85,28 @@ export const assets = {
 
 export const menu_list = [
     {
-        menu_name: "Salad",
+        menu_name: "Chinese",
         menu_image: menu_1
     },
     {
-        menu_name: "Rolls",
+        menu_name: "biryani",
         menu_image: menu_2
     },
     {
-        menu_name: "Deserts",
+        menu_name: "pizza",
         menu_image: menu_3
     },
     {
-        menu_name: "Sandwich",
+        menu_name: "burger",
         menu_image: menu_4
     },
     {
-        menu_name: "Cake",
+        menu_name: "combos",
         menu_image: menu_5
     },
     {
-        menu_name: "Pure Veg",
+        menu_name: "breakfast",
         menu_image: menu_6
-    },
-    {
-        menu_name: "Pasta",
-        menu_image: menu_7
-    },
-    {
-        menu_name: "Noodles",
-        menu_image: menu_8
     }]
 
 
