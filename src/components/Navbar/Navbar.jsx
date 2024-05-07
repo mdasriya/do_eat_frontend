@@ -7,21 +7,30 @@ import { StoreContext } from "../../context/StoreContext";
 
 const MyNavbar = () => {
   const [menu, setMenu] = useState("home");
-const isAuth = localStorage.getItem("token")
+// const isAuth = localStorage.getItem("token")
   const [isOpen, setIsOpen] = useState(false);
+  const [isAuth, setIsAuth] = useState(false);
+
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
- const handleLogout = () => {
-  const token = localStorage.getItem("token")
-  if(token){
-    localStorage.clear()
-    alert("Log out Success!!!")
+//  const handleLogout = () => {
+//   const token = localStorage.getItem("token")
+//   if(token){
+//     localStorage.clear()
+//     alert("Log out Success!!!")
+//   }
+//  }
 
-  }
- }
+ useEffect(() => {
+  const currentTime = new Date().getHours();
+  setIsAuth(currentTime >= 11 && currentTime < 23);
+  console.log(currentTime)
+}, []);
+
+
 
   useEffect(() => {
     /* scroll to top function */
@@ -30,6 +39,8 @@ const isAuth = localStorage.getItem("token")
       behavior: "smooth",
     });
   }, []);
+
+console.log("is", isAuth)
 
   return (
     <div>
@@ -253,17 +264,20 @@ const isAuth = localStorage.getItem("token")
                   </span> */}
                 </span>
               </Link>
-     {isAuth ?  <button onClick={handleLogout} className="px-3 py-2 text-sm rounded-full text-orange-600 uppercase font-bold font-mono border-2 border-white bg-white  hover:shadow-lg hover:scale-110 transition-transform duration-300">
-                 Log Out
-                </button> : <Link to="/signin">
-                <button className="px-3 py-2 text-sm rounded-full text-orange-600 uppercase font-bold font-mono border-2 border-white bg-white  hover:shadow-lg hover:scale-110 transition-transform duration-300">
-                  Sign In
-                </button>
-              </Link>}      
-            
-               
-          
-
+              {isAuth ? (
+        <button
+        
+          className="px-3 py-2 text-sm rounded-full text-white uppercase font-bold font-mono border-2 border-green-500 bg-green-500 hover:shadow-lg hover:scale-110 transition-transform duration-300"
+        >
+          Restaurant open
+        </button>
+      ) : (
+        <button
+          className="px-3 py-2 text-sm rounded-full text-white uppercase font-bold font-mono border-2 border-red-500 bg-red-500 hover:shadow-lg hover:scale-110 transition-transform duration-300"
+        >
+          Restaurant closed
+        </button>
+      )}     
               <button
                 id="toggleOpen"
                 onClick={toggleMenu}

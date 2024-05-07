@@ -29,11 +29,13 @@ export default function Dishes() {
   const [temp, setTemp] = useState([]);
   const [productsPerPage] = useState(10);
   const [category, setCategory] = useState("All");
+  const [menuItem, setMenuItem] = useState([])
 
 
    const fetchDishes = () =>  {
     setFetchLoading(true)
-    axios.get("https://light-foal-loafers.cyclic.app/yantra")
+  
+  axios.get("https://light-foal-loafers.cyclic.app/yantra")
     .then((res)=> {
       console.log(res.data)
       setDishes(res.data)
@@ -61,9 +63,7 @@ const sortProduct = dishes.filter((item)=> item.veg == props)
 }
 
   const sortOptions = [
-    // { name: 'Most Popular', href: '#', current: true },
-    // { name: 'Best Rating', href: '#', current: false },
-    // { name: 'Newest', href: '#', current: false },
+   
     { name: 'veg', current: false },
     { name: 'nonveg', current: false },
   ]
@@ -115,6 +115,19 @@ fetchDishes()
 }
 
 
+const fetchMenu = () => {
+  axios.get("https://light-foal-loafers.cyclic.app/menu")
+  .then((res)=> {
+    console.log("menu", res.data)
+    setMenuItem(res.data)
+  })
+  .catch((error)=> {
+    console.log(error.message)
+  })
+}
+
+
+
   useEffect(() => {
     // setDishes(food_list);
     scrollToTop();
@@ -122,7 +135,9 @@ fetchDishes()
 
   useEffect(()=>{
     fetchDishes()
+    fetchMenu()
        },[])
+  
 
 console.log("cat",category)
 // console.log("sort",selectedSortOption)
@@ -226,16 +241,19 @@ console.log("cat",category)
         <div className="explore-menu -mt-16" id="explore-menu">
       <h1 className='text-2xl'>Explore our menu</h1>
      
+
+     {/* menu div code start here */}
       <div className="explore-menu-list">
-        {menu_list.map((item, index) => {
+        {menuItem.map((item, index) => {
           return (
-            <div onClick={()=>handleCategoryFilter(item.menu_name)} key={index} className="explore-menu-list-item">
-              <img className={category===item.menu_name?"active":""} src={item.menu_image} alt="" />
-              <p>{item.menu_name}</p>
+            <div onClick={()=>handleCategoryFilter(item.title)} key={index} className="explore-menu-list-item">
+              <img  src={item.image} alt="" />
+              <p>{item.title}</p>
             </div>
           );
         })}
       </div>
+        {/* menu div code end here */}
 
     </div>
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 -mt-16">

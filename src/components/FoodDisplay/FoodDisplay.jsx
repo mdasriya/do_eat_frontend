@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 import "./FoodDisplay.css";
 import FoodItem from "../FoodItem/FoodItem";
-import { StoreContext } from "../../context/StoreContext";
+
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const FoodDisplay = ({ category }) => {
   const [dishes, setDishes] = useState([])
-  const { food_list } = useContext(StoreContext);
+ 
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(5);
 const navigate = useNavigate()

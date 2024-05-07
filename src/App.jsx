@@ -17,8 +17,6 @@ import MainRoutes from "./components/MainRoutes/MainRoutes";
 
 const App = () => {
 
-
-
   return (
     <>
       <div className="app">

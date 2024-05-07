@@ -5,50 +5,63 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const initialform = {
-  firstName:"",
-  lastName:"",
-  email:"",
-  street:"",
-  city:"",
-  state:"",
-  zipcode:"",
-  country:"",
-  phone:""
-
-}
+  firstName: "",
+  lastName: "",
+  email: "",
+  street: "",
+  city: "",
+  state: "",
+  zipcode: "",
+  country: "",
+  phone: "",
+};
 
 const Cart = () => {
+  const [isAuth, setIsAuth] = useState(false)
   const [update, setUpdate] = useState(false);
   const [open, setOpen] = useState(false);
-  const [formData, setFormData] = useState(initialform)
+  const [formData, setFormData] = useState(initialform);
   const [data, setData] = useState([]);
   // const { cartItems, food_list, removeFromCart, getTotalCartAmount } =
   //   useContext(StoreContext);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  const totalPrice = data.reduce(
+  const totalPrice = data?.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
 
-
+  const func = () => {
+    setUpdate((prev) => !prev);
+  };
 
   const getCartProduct = () => {
-    return axios
-      .get("https://light-foal-loafers.cyclic.app/cart", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((res) => {
-        const cartData = res.data.map((item) => ({ ...item, quantity: 1 }));
-        setData(cartData);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const cartFound = JSON.parse(localStorage.getItem("cart"));
+    if (!cartFound || cartFound.length === 0) {
+      setData([]);
+    } else {
+      setData(cartFound);
+    }
   };
+
+  // const getCartProduct = () => {
+  //   return axios
+  //     .get("https://light-foal-loafers.cyclic.app/cart",
+  //     {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //       },
+  //     }
+  //   )
+  //     .then((res) => {
+  //       const cartData = res.data.map((item) => ({ ...item, quantity: 1 }));
+  //       setData(cartData);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   const handleQuantityIncrement = (id) => {
     const updatedItems = data.map((item) => {
@@ -75,86 +88,109 @@ const Cart = () => {
     setData(updatedItems);
   };
 
-  const func = () => {
-    setUpdate((prev) => !prev);
-  };
+  const handleDelete = (deleteId) => {
+    let cartData = JSON.parse(localStorage.getItem("cart"));
 
-  const handleDelete = async (id) => {
-    try {
-      const response = await axios.delete(
-        `https://light-foal-loafers.cyclic.app/cart/delete/${id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      if (response) {
-        setUpdate((prev) => !prev);
-      }
-    } catch (error) {
-      func();
+    if (!cartData || cartData.length === 0) {
+      alert("Cart is empty");
+      return;
     }
+
+    const updatedCartData = cartData.filter((item) => item._id !== deleteId);
+
+    localStorage.setItem("cart", JSON.stringify(updatedCartData));
+    alert("Product removed from cart");
+    func();
   };
 
- 
+  // const handleDelete = async (id) => {
+  //   try {
+  //     const response = await axios.delete(
+  //       `https://light-foal-loafers.cyclic.app/cart/delete/${id}`,
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //         },
+  //       }
+  //     );
+  //     if (response) {
+  //       setUpdate((prev) => !prev);
+  //     }
+  //   } catch (error) {
+  //     func();
+  //   }
+  // };
 
   const handleOpen = () => {
     setOpen((prev) => !prev);
   };
 
   const handleChange = (e) => {
-  const {name, value} = e.target;
-  setFormData({...formData, [name]:value})
-  }
-
-  const handleOrderProduct = async() => {
-    let finalData = {
-      ...formData,data
-    }
-   const res = await axios.post("https://light-foal-loafers.cyclic.app/order/create", finalData)
-  
-    if(res.data.state){
-      alert(res.data.msg)
-      setFormData(initialform)
-      setOpen((prev)=> !prev)
-       await handledeleteCartData(data)
-    }
-   
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
+  const handleOrderProduct = async () => {
+    let finalData = {
+      ...formData,
+      data,
+    };
+    const res = await axios.post(
+      "https://light-foal-loafers.cyclic.app/order/create",
+      finalData
+    );
 
-// cart deleted function 
-const handledeleteCartData = async (data) => {
-  return axios
-    .post('https://light-foal-loafers.cyclic.app/cart/order/delete', data, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    })
-    .then((res) => {
-      if (res.data.state) {
-        navigate("/")
-      } else {
-        alert("something went wrong while deleting cartdata")
-      }
+    if (res.data.state) {
+      alert(res.data.msg);
+      localStorage.clear();
+      setFormData(initialform);
+      handleOpen();
+      func();
+      navigate("/")
+      //  await handledeleteCartData(data)
+    }
+  };
 
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
+  // cart deleted function
+  // const handledeleteCartData = async (data) => {
+  //   return axios
+  //     .post('https://light-foal-loafers.cyclic.app/cart/order/delete', data, {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         Authorization: `Bearer ${localStorage.getItem('token')}`,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       if (res.data.state) {
+  //         navigate("/")
+  //       } else {
+  //         alert("something went wrong while deleting cartdata")
+  //       }
+
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
 
 
+  const handleres = () => {
+    alert("Resturant close unable to take order")
+  }
+
+  useEffect(() => {
+    const currentTime = new Date().getHours();
+    setIsAuth(currentTime >= 11 && currentTime < 23);
+    console.log(currentTime)
+  }, []);
 
 
   useEffect(() => {
-    if (token) {
-      getCartProduct();
-    }
+    getCartProduct();
   }, [update]);
+
+console.log("isAuth", isAuth)
 
   return (
     <>
@@ -164,10 +200,13 @@ const handledeleteCartData = async (data) => {
           <div className="modal_outer_1">
             <div className="">
               <div className="flex justify-between">
-              <p className="delivery text-xl">Delivery Information</p>
-<button className="absolute left-[97%] top-0 " onClick={()=>setOpen(false)}>
-  x
-</button>
+                <p className="delivery text-xl">Delivery Information</p>
+                <button
+                  className="absolute left-[97%] top-0 "
+                  onClick={() => setOpen(false)}
+                >
+                  x
+                </button>
               </div>
               <div className="first_input flex gap-2">
                 <input
@@ -197,7 +236,7 @@ const handledeleteCartData = async (data) => {
                 id="email"
                 required
                 value={formData.email}
-                  onChange={handleChange}
+                onChange={handleChange}
                 autoComplete="email"
                 placeholder="Enter Email"
                 className="block w-full mt-2 rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-200 sm:text-lg sm:leading-6"
@@ -207,7 +246,7 @@ const handledeleteCartData = async (data) => {
                 name="street"
                 id="street"
                 value={formData.street}
-                  onChange={handleChange}
+                onChange={handleChange}
                 required
                 autoComplete="street"
                 placeholder="Enter street"
@@ -249,7 +288,8 @@ const handledeleteCartData = async (data) => {
                 <input
                   type="text"
                   name="country"
-                  id="country"value={formData.country}
+                  id="country"
+                  value={formData.country}
                   onChange={handleChange}
                   autoComplete="country"
                   placeholder="country"
@@ -261,7 +301,7 @@ const handledeleteCartData = async (data) => {
                 name="phone"
                 id="phone"
                 value={formData.phone}
-                  onChange={handleChange}
+                onChange={handleChange}
                 required
                 autoComplete="phone"
                 placeholder="Enter phone"
@@ -269,7 +309,7 @@ const handledeleteCartData = async (data) => {
               />
             </div>
             <div className="place-order-right text-center mt-2 border-2 border-orange-400 bg-orange-400 p-2 font-bold text-white">
-              <button onClick={handleOrderProduct}>PROCEED TO PAYMENT</button>
+         <button onClick={handleOrderProduct}>PROCEED TO PAYMENT</button>
             </div>
           </div>
         </div>
@@ -288,41 +328,42 @@ const handledeleteCartData = async (data) => {
           </div>
           <br />
           <hr />
-          {data.map((item, index) => {
-            return (
-              <div key={item._id}>
-                <div className="cart-items-title cart-items-item">
-                  <img src={item.image} alt="" />
-                  <p>{item.title}</p>
-                  <p>₹{item.price}</p>
-                  <div className="flex gap-2">
-                    <button
-                      className="border-2 px-2"
-                      onClick={() => handleQuantityDecrement(item._id)}
-                    disabled={item.quantity === 1}
+          {data &&
+            data.map((item, index) => {
+              return (
+                <div key={item._id}>
+                  <div className="cart-items-title cart-items-item">
+                    <img src={item.image} alt="" />
+                    <p>{item.title}</p>
+                    <p>₹{item.price}</p>
+                    <div className="flex gap-2">
+                      <button
+                        className="border-2 px-2"
+                        onClick={() => handleQuantityDecrement(item._id)}
+                        disabled={item.quantity === 1}
+                      >
+                        -
+                      </button>
+                      <p>{item.quantity}</p>
+                      <button
+                        className="border-2 px-2 disabled:opacity-50"
+                        onClick={() => handleQuantityIncrement(item._id)}
+                      >
+                        +
+                      </button>
+                    </div>
+                    <p>₹{item.price * item.quantity}</p>
+                    <p
+                      onClick={() => handleDelete(item._id)}
+                      className="cross text-red-500"
                     >
-                      -
-                    </button>
-                    <p>{item.quantity}</p>
-                    <button
-                      className="border-2 px-2 disabled:opacity-50"
-                      onClick={() => handleQuantityIncrement(item._id)}
-                    >
-                      +
-                    </button>
+                      X
+                    </p>
                   </div>
-                  <p>₹{item.price * item.quantity}</p>
-                  <p
-                    onClick={() => handleDelete(item._id)}
-                    className="cross text-red-500"
-                  >
-                    X
-                  </p>
+                  <hr />
                 </div>
-                <hr />
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
         <div className="text-right mt-3">
           <h2>Cart Totals: {totalPrice}</h2>
@@ -343,10 +384,15 @@ const handledeleteCartData = async (data) => {
               <hr />
               <div className="cart-total-details">
                 <b>Total</b>
-                <b>₹{totalPrice === 0 ? 0 : totalPrice + 50}</b>
+                {totalPrice ? (
+                  <b>₹{totalPrice === 0 ? 0 : totalPrice + 50}</b>
+                ) : (
+                  0
+                )}
               </div>
             </div>
-            <button onClick={handleOpen}>PROCEED TO CHECKOUT</button>
+         {!isAuth ? <button onClick={handleres} disabled={isAuth} className={`bg-blue-500 ${!isAuth && 'opacity-50 cursor-not-allowed'}`}>PROCEED TO CHECKOUT</button> : <button onClick={handleOpen} disabled={isAuth} className={`bg-blue-500 ${!isAuth && 'opacity-50 cursor-not-allowed'}`}>PROCEED TO CHECKOUT</button>}   
+
           </div>
           <div className="cart-promocode">
             <div>
