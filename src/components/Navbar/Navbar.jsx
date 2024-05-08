@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { assets } from "../../assets/assets";
 import { Link } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
+import axios from "axios";
 
 
 const MyNavbar = () => {
@@ -10,7 +11,7 @@ const MyNavbar = () => {
 // const isAuth = localStorage.getItem("token")
   const [isOpen, setIsOpen] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
-
+const [resStatus, setResStatus] = useState(null)
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -40,7 +41,21 @@ const MyNavbar = () => {
     });
   }, []);
 
-console.log("is", isAuth)
+  const fetchstatus = () => {
+    axios.get("https://light-foal-loafers.cyclic.app/resturant")
+    .then((res)=> {
+    // console.log(res.data)
+    setResStatus(res.data[0].resturant)
+   
+    
+    }).catch((error)=> {
+      console.log(error.message)
+    })
+  }
+
+  useEffect(()=>{
+    fetchstatus()
+  },[])
 
   return (
     <div>
@@ -264,18 +279,18 @@ console.log("is", isAuth)
                   </span> */}
                 </span>
               </Link>
-              {isAuth ? (
+              {resStatus ? (
         <button
         
           className="px-3 py-2 text-sm rounded-full text-white uppercase font-bold font-mono border-2 border-green-500 bg-green-500 hover:shadow-lg hover:scale-110 transition-transform duration-300"
         >
-          Restaurant open
+           open
         </button>
       ) : (
         <button
-          className="px-3 py-2 text-sm rounded-full text-white uppercase font-bold font-mono border-2 border-red-500 bg-red-500 hover:shadow-lg hover:scale-110 transition-transform duration-300"
+          className="blinking-button px-3 py-2 text-sm rounded-full text-white uppercase font-bold font-mono border-2 border-red-500 bg-red-500 hover:shadow-lg hover:scale-110 transition-transform duration-300"
         >
-          Restaurant closed
+           closed
         </button>
       )}     
               <button

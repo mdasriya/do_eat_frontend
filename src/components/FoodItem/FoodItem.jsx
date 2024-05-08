@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 
-const FoodItem = ({ id, title, price, description, image,category }) => {
+const FoodItem = ({ id, title, price, description, image,category,discount,cutprice }) => {
   // const { cartItems, addToCart, removeFromCart } = useContext(StoreContext);
 
   // const handleAddToCart = (e) => {
@@ -82,7 +82,7 @@ const FoodItem = ({ id, title, price, description, image,category }) => {
 //     }
 //   };
 const handleCartData = async () => {
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
   console.log({ id, title, price, description, image });
 
   // if (!token) {
@@ -95,7 +95,8 @@ const handleCartData = async () => {
     image,
     price,
     title,
-    quantity:1
+    quantity:1,
+    discount
   };
 
   let found = JSON.parse(localStorage.getItem("cart"));
@@ -117,58 +118,14 @@ const handleCartData = async () => {
     alert("product added to cart");
   }
 
-  // try {
-  //   const response = await axios.post(
-  //     "https://light-foal-loafers.cyclic.app/cart/create",
-  //     finalData,
-  //     {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //       },
-  //     }
-  //   );
-
-  //   if (response.data.state) {
-  //     toast.success("product is added in cart");
-  //     // onClose();
-  //     // toggleTheme()
-  //   } else {
-  //     toast.error("product is Already in your cart");
-  //   }
-  // } catch (error) {
-  //   console.log("error", error);
-  // }
+ 
 };
 
-
-
   return (
-    <div className="food-item">
+    <>
+    <div className="food-item relative overflow-hidden">
       <div className="food-item-img-container">
         <img className="food-item-image"  src={image} alt="" />
-        {/* {!cartItems[id] ? (
-          <img
-            className="add"
-            onClick={() => addToCart(id)}
-            src={assets.add_icon_white}
-            alt=""
-          />
-        ) : (
-          <div className="food-item-counter">
-            <img
-              onClick={() => removeFromCart(id)}
-              src={assets.remove_icon_red}
-              alt=""
-            />
-            <p>{cartItems[id]}</p>
-            <img
-              onClick={() => addToCart(id)}
-              src={assets.add_icon_green}
-              alt=""
-            />
-          </div>
-        )} */}
       </div>
       <div className="food-item-info">
         <div className="food-item-name-rating">
@@ -176,11 +133,21 @@ const handleCartData = async () => {
           <img src={assets.rating_starts} alt="" />
         </div>
         <p className="food-item-desc">{description}</p>
-        <p className="food-item-price">₹{price}</p>
+      
+        <div className="flex gap-3">
+       <p className="text-gray-500 text-xl"> <del>₹{cutprice}</del></p>
+       <p className=" text-green-600 text-xl">₹{price}</p>
+        </div>
+
         <p className="food-item-price">{category}</p>
         <div className="text-center"><button className="border-2 border-black bg-black text-white p-1 border-r-10" onClick={handleCartData}>Add To Cart</button></div>
       </div>
+      <div className="absolute top-4 bg-green-600 text-center left-[86%] w-[45px] h-[30px] text-white rounded-md items-center">
+<p className="mt-1">{discount}%</p>
+</div>
     </div>
+
+    </>
   );
 };
 

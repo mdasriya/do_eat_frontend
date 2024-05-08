@@ -3,6 +3,7 @@ import "./Cart.css";
 // import { StoreContext } from "../../context/StoreContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const initialform = {
   firstName: "",
@@ -17,11 +18,12 @@ const initialform = {
 };
 
 const Cart = () => {
-  const [isAuth, setIsAuth] = useState(false)
+  // const [isAuth, setIsAuth] = useState(false)
   const [update, setUpdate] = useState(false);
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState(initialform);
   const [data, setData] = useState([]);
+  const [resStatus, setResStatus] = useState(null)
   // const { cartItems, food_list, removeFromCart, getTotalCartAmount } =
   //   useContext(StoreContext);
   const navigate = useNavigate();
@@ -175,22 +177,39 @@ const Cart = () => {
   // }
 
 
-  const handleres = () => {
-    alert("Resturant close unable to take order")
+  const handleAlert = () => {
+    toast.error("Resturant close unable to take order")
   }
 
-  useEffect(() => {
-    const currentTime = new Date().getHours();
-    setIsAuth(currentTime >= 11 && currentTime < 23);
-    console.log(currentTime)
-  }, []);
+  // useEffect(() => {
+  //   const currentTime = new Date().getHours();
+  //   setIsAuth(currentTime >= 11 && currentTime < 23);
+  //   console.log(currentTime)
+  // }, []);
+
+  const fetchstatus = () => {
+    axios.get("https://light-foal-loafers.cyclic.app/resturant")
+    .then((res)=> {
+    // console.log(res.data)
+    setResStatus(res.data[0].resturant)
+   
+    
+    }).catch((error)=> {
+      console.log(error.message)
+    })
+  }
+
+  useEffect(()=>{
+    fetchstatus()
+  },[])
+
 
 
   useEffect(() => {
     getCartProduct();
   }, [update]);
 
-console.log("isAuth", isAuth)
+// console.log("isAuth", isAuth)
 
   return (
     <>
@@ -391,7 +410,7 @@ console.log("isAuth", isAuth)
                 )}
               </div>
             </div>
-         {!isAuth ? <button onClick={handleres} disabled={isAuth} className={`bg-blue-500 ${!isAuth && 'opacity-50 cursor-not-allowed'}`}>PROCEED TO CHECKOUT</button> : <button onClick={handleOpen} disabled={isAuth} className={`bg-blue-500 ${!isAuth && 'opacity-50 cursor-not-allowed'}`}>PROCEED TO CHECKOUT</button>}   
+    {resStatus ?  <button onClick={handleOpen} >PROCEED TO CHECKOUT</button> : <button onClick={handleAlert} > Restaurant close</button>}       
 
           </div>
           <div className="cart-promocode">
