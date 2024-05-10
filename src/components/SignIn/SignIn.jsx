@@ -20,7 +20,7 @@ export default function SignIn() {
         e.preventDefault()
       
         const data = { email, pass }
-        axios.post("https://light-foal-loafers.cyclic.app/user/login", data)
+        axios.post("http://localhost:4000/user/login", data)
           .then(res => {
            
             localStorage.setItem("token", res.data.token)

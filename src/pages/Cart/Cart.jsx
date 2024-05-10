@@ -24,10 +24,13 @@ const Cart = () => {
   const [formData, setFormData] = useState(initialform);
   const [data, setData] = useState([]);
   const [resStatus, setResStatus] = useState(null)
+  const [orderLoading, setOrderLoading] = useState(false)
   // const { cartItems, food_list, removeFromCart, getTotalCartAmount } =
   //   useContext(StoreContext);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  
+  
   const totalPrice = data?.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
@@ -48,7 +51,7 @@ const Cart = () => {
 
   // const getCartProduct = () => {
   //   return axios
-  //     .get("https://light-foal-loafers.cyclic.app/cart",
+  //     .get("http://localhost:4000/cart",
   //     {
   //       headers: {
   //         "Content-Type": "application/json",
@@ -108,7 +111,7 @@ const Cart = () => {
   // const handleDelete = async (id) => {
   //   try {
   //     const response = await axios.delete(
-  //       `https://light-foal-loafers.cyclic.app/cart/delete/${id}`,
+  //       `http://localhost:4000/cart/delete/${id}`,
   //       {
   //         headers: {
   //           "Content-Type": "application/json",
@@ -134,30 +137,40 @@ const Cart = () => {
   };
 
   const handleOrderProduct = async () => {
+    setOrderLoading(true)
     let finalData = {
       ...formData,
+      totalPrice,
       data,
     };
-    const res = await axios.post(
-      "https://light-foal-loafers.cyclic.app/order/create",
-      finalData
-    );
+try {
+  
+  const res = await axios.post(
+    "http://localhost:4000/order/create",
+    finalData
+  );
 
-    if (res.data.state) {
-      alert(res.data.msg);
-      localStorage.clear();
-      setFormData(initialform);
-      handleOpen();
-      func();
-      navigate("/")
-      //  await handledeleteCartData(data)
-    }
+  if (res.data.state) {
+  toast.success(res.data.msg);
+  setOrderLoading(false)
+    localStorage.clear();
+    setFormData(initialform);
+    handleOpen();
+    func();
+    navigate("/")
+    //  await handledeleteCartData(data)
+  }
+} catch (error) {
+  console.log(error.message)
+}
+
+   
   };
 
   // cart deleted function
   // const handledeleteCartData = async (data) => {
   //   return axios
-  //     .post('https://light-foal-loafers.cyclic.app/cart/order/delete', data, {
+  //     .post('http://localhost:4000/cart/order/delete', data, {
   //       headers: {
   //         'Content-Type': 'application/json',
   //         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -188,7 +201,7 @@ const Cart = () => {
   // }, []);
 
   const fetchstatus = () => {
-    axios.get("https://light-foal-loafers.cyclic.app/resturant")
+    axios.get("http://localhost:4000/resturant")
     .then((res)=> {
     // console.log(res.data)
     setResStatus(res.data[0].resturant)
@@ -328,7 +341,7 @@ const Cart = () => {
               />
             </div>
             <div className="place-order-right text-center mt-2 border-2 border-orange-400 bg-orange-400 p-2 font-bold text-white">
-         <button onClick={handleOrderProduct}>PROCEED TO PAYMENT</button>
+    {orderLoading ? <button>Please wait ...</button> : <button onClick={handleOrderProduct}>PROCEED TO PAYMENT</button>}     
             </div>
           </div>
         </div>

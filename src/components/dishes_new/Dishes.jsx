@@ -37,7 +37,7 @@ export default function Dishes() {
     setFetchLoading(true);
 
     axios
-      .get("https://light-foal-loafers.cyclic.app/yantra")
+      .get("http://localhost:4000/yantra")
       .then((res) => {
         console.log(res.data);
         setDishes(res.data);
@@ -113,7 +113,7 @@ export default function Dishes() {
 
   const fetchMenu = () => {
     axios
-      .get("https://light-foal-loafers.cyclic.app/menu")
+      .get("http://localhost:4000/menu")
       .then((res) => {
         console.log("menu", res.data);
         setMenuItem(res.data);
