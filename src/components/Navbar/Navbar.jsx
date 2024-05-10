@@ -42,7 +42,7 @@ const [resStatus, setResStatus] = useState(null)
   }, []);
 
   const fetchstatus = () => {
-    axios.get("http://localhost:4000/resturant")
+    axios.get("https://light-foal-loafers.cyclic.app/resturant")
     .then((res)=> {
     // console.log(res.data)
     setResStatus(res.data[0].resturant)

@@ -51,7 +51,7 @@ const Cart = () => {
 
   // const getCartProduct = () => {
   //   return axios
-  //     .get("http://localhost:4000/cart",
+  //     .get("https://light-foal-loafers.cyclic.app/cart",
   //     {
   //       headers: {
   //         "Content-Type": "application/json",
@@ -111,7 +111,7 @@ const Cart = () => {
   // const handleDelete = async (id) => {
   //   try {
   //     const response = await axios.delete(
-  //       `http://localhost:4000/cart/delete/${id}`,
+  //       `https://light-foal-loafers.cyclic.app/cart/delete/${id}`,
   //       {
   //         headers: {
   //           "Content-Type": "application/json",
@@ -146,7 +146,7 @@ const Cart = () => {
 try {
   
   const res = await axios.post(
-    "http://localhost:4000/order/create",
+    "https://light-foal-loafers.cyclic.app/order/create",
     finalData
   );
 
@@ -170,7 +170,7 @@ try {
   // cart deleted function
   // const handledeleteCartData = async (data) => {
   //   return axios
-  //     .post('http://localhost:4000/cart/order/delete', data, {
+  //     .post('https://light-foal-loafers.cyclic.app/cart/order/delete', data, {
   //       headers: {
   //         'Content-Type': 'application/json',
   //         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -201,7 +201,7 @@ try {
   // }, []);
 
   const fetchstatus = () => {
-    axios.get("http://localhost:4000/resturant")
+    axios.get("https://light-foal-loafers.cyclic.app/resturant")
     .then((res)=> {
     // console.log(res.data)
     setResStatus(res.data[0].resturant)
@@ -211,12 +211,9 @@ try {
       console.log(error.message)
     })
   }
-
   useEffect(()=>{
     fetchstatus()
   },[])
-
-
 
   useEffect(() => {
     getCartProduct();

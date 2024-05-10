@@ -59,7 +59,7 @@ const FoodItem = ({ id, title, price, description, image,category,discount,cutpr
 
 //     try {
 //       const response = await axios.post(
-//         'http://localhost:4000/cart/create',
+//         'https://light-foal-loafers.cyclic.app/cart/create',
 //         finalData,
 //         {
 //           headers: {
