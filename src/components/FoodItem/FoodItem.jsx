@@ -143,7 +143,7 @@ const handleCartData = async () => {
         <div className="text-center"><button className="border-2 border-black bg-black text-white p-1 border-r-10" onClick={handleCartData}>Add To Cart</button></div>
       </div>
       <div className="absolute top-4 bg-green-600 text-center left-[86%] w-[45px] h-[30px] text-white rounded-md items-center">
-<p className="mt-1">{discount}%</p>
+<p className="mt-1">{discount}% off</p>
 </div>
     </div>
 

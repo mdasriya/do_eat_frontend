@@ -17,11 +17,13 @@
     "framer-motion": "^11.1.7",
     "ldrs": "^1.0.1",
     "react": "^18.2.0",
+    "react-confetti": "^6.1.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.2.0",
     "react-router-dom": "^6.23.0",
     "react-toastify": "^10.0.5",
-    "styled-components": "^6.1.9"
+    "react-use": "^17.5.0",
+    "styled-components": "^6.1.11"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
