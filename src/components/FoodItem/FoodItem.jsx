@@ -101,21 +101,21 @@ const handleCartData = async () => {
 
   let found = JSON.parse(localStorage.getItem("cart"));
 
-  console.log("found", found);
+  // console.log("found", found);
   if (found === null) {
     localStorage.setItem("cart", JSON.stringify([finalData]));
-    alert("product added to cart");
+    toast.success("product added to cart");
   } else {
     // Check if the product already exists in the cart
     const productExists = found.some(item => item._id === id);
     if (productExists) {
-      alert("Product already in cart");
+      toast.error("Product already in cart");
       return;
     }
    
     found.push(finalData); // Push the new data to the existing array
     localStorage.setItem("cart", JSON.stringify(found));
-    alert("product added to cart");
+    toast.success("product added to cart");
   }
 
  
@@ -142,8 +142,8 @@ const handleCartData = async () => {
         <p className="food-item-price">{category}</p>
         <div className="text-center"><button className="border-2 border-black bg-black text-white p-1 border-r-10" onClick={handleCartData}>Add To Cart</button></div>
       </div>
-      <div className="absolute top-4 bg-green-600 text-center left-[86%] w-[45px] h-[30px] text-white rounded-md items-center">
-<p className="mt-1">{discount}% off</p>
+      <div className="absolute top-4 bg-green-600 items-center left-[82%]  w-[59px] h-[30px]  text-white rounded-md text-center">
+<p className="mt-1">{discount}%{" "}off</p>
 </div>
     </div>
 

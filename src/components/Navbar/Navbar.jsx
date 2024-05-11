@@ -59,7 +59,7 @@ const [resStatus, setResStatus] = useState(null)
 
   return (
     <div>
-      <header className="flex border-b border-orange-400 py-4 sm:px-8 px-6 font-[sans-serif] min-h-[80px] tracking-wide relative z-50 bg-orange-500">
+      <header className="flex border-b  border-orange-400 py-4 sm:px-8 px-6 font-[sans-serif] min-h-[80px] tracking-wide relative z-50 bg-orange-500">
         <div className="flex flex-wrap items-center lg:gap-y-2 gap-2 w-full">
           <Link to="/">
             <img

@@ -34,7 +34,7 @@ const Home = () => {
 
     
     <div>
-  {todayDate == "2024-05-12" && (<Confetti {...confettiProps} />)}     
+  {todayDate == "2024-05-12" && (<Confetti {...confettiProps} />)}      
       <Header />
       <ExploreMenu category={category} setCategory={setCategory} />
       {/* <FoodDisplay category={category} /> */}
