@@ -133,7 +133,7 @@ export default function Dishes() {
     fetchMenu();
   }, []);
 
-  console.log("cat", category);
+  // console.log("cat", category);
   // console.log("sort",selectedSortOption)
 
   return (
