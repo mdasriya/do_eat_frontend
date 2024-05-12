@@ -16,7 +16,7 @@ const navigate = useNavigate()
        
         let data = { name, email, pass };
         axios
-          .post("https://light-foal-loafers.cyclic.app/user/register", data)
+          .post("http://localhost:4000/user/register", data)
           .then((res) => {
           
             if (res.data.state) {

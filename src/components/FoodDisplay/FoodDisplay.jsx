@@ -14,7 +14,7 @@ const navigate = useNavigate()
 
 
 const fetchDishes = () =>  {
-  axios.get("https://light-foal-loafers.cyclic.app/yantra")
+  axios.get("http://localhost:4000/yantra")
   .then((res)=> {
     console.log(res.data)
     setDishes(res.data)

@@ -3,7 +3,7 @@ import "../FoodDisplay/FoodDisplay.css";
 import FoodItem from "../FoodItem/FoodItem";
 import { StoreContext } from "../../context/StoreContext";
 import "./Dishes.css";
-import { menu_list } from "../../assets/assets";
+// import { menu_list } from "../../assets/assets";
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -37,7 +37,7 @@ export default function Dishes() {
     setFetchLoading(true);
 
     axios
-      .get("https://light-foal-loafers.cyclic.app/yantra")
+      .get("http://localhost:4000/yantra")
       .then((res) => {
         console.log(res.data);
         setDishes(res.data);
@@ -113,7 +113,7 @@ export default function Dishes() {
 
   const fetchMenu = () => {
     axios
-      .get("https://light-foal-loafers.cyclic.app/menu")
+      .get("http://localhost:4000/menu")
       .then((res) => {
         console.log("menu", res.data);
         setMenuItem(res.data);
@@ -273,6 +273,12 @@ export default function Dishes() {
           </div>
           {/* menu div code end here */}
         </div>
+       
+        
+{/* <div className="text-center">
+        <span className="text-center p-2 bg-red-600 text-xl text-white animate-blink">Backend Server is Down</span>
+</div> */}
+     
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 -mt-16">
           <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
             <h1 className="text-3xl font-bold tracking-tight text-gray-900">
