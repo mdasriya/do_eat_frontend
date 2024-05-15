@@ -14,7 +14,7 @@ const navigate = useNavigate()
 
 
 const fetchDishes = () =>  {
-  axios.get("http://localhost:4000/yantra")
+  axios.get("https://do-eat-backen.onrender.com/yantra")
   .then((res)=> {
     console.log(res.data)
     setDishes(res.data)

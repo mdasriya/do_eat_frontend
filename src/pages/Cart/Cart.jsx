@@ -51,7 +51,7 @@ const Cart = () => {
 
   // const getCartProduct = () => {
   //   return axios
-  //     .get("http://localhost:4000/cart",
+  //     .get("https://do-eat-backen.onrender.com/cart",
   //     {
   //       headers: {
   //         "Content-Type": "application/json",
@@ -111,7 +111,7 @@ const Cart = () => {
   // const handleDelete = async (id) => {
   //   try {
   //     const response = await axios.delete(
-  //       `http://localhost:4000/cart/delete/${id}`,
+  //       `https://do-eat-backen.onrender.com/cart/delete/${id}`,
   //       {
   //         headers: {
   //           "Content-Type": "application/json",
@@ -146,7 +146,7 @@ const Cart = () => {
 try {
   
   const res = await axios.post(
-    "http://localhost:4000/order/create",
+    "https://do-eat-backen.onrender.com/order/create",
     finalData
   );
 
@@ -170,7 +170,7 @@ try {
   // cart deleted function
   // const handledeleteCartData = async (data) => {
   //   return axios
-  //     .post('http://localhost:4000/cart/order/delete', data, {
+  //     .post('https://do-eat-backen.onrender.com/cart/order/delete', data, {
   //       headers: {
   //         'Content-Type': 'application/json',
   //         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -201,7 +201,7 @@ try {
   // }, []);
 
   const fetchstatus = () => {
-    axios.get("http://localhost:4000/resturant")
+    axios.get("https://do-eat-backen.onrender.com/resturant")
     .then((res)=> {
     // console.log(res.data)
     setResStatus(res.data[0].resturant)
