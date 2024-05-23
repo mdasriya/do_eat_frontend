@@ -277,6 +277,7 @@ const [resStatus, setResStatus] = useState(null)
                   {/* <span className="absolute left-auto -ml-1 top-0 rounded-full bg-gray-800 px-1 py-0 text-xs text-white">
                     0
                   </span> */}
+                  <span className="text-white ml-1">Cart</span>
                 </span>
               </Link>
               {resStatus ? (

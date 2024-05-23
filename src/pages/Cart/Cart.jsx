@@ -97,14 +97,16 @@ const Cart = () => {
     let cartData = JSON.parse(localStorage.getItem("cart"));
 
     if (!cartData || cartData.length === 0) {
-      alert("Cart is empty");
+      // alert("Cart is empty");
+      toast.error("Cart is empty");
       return;
     }
 
     const updatedCartData = cartData.filter((item) => item._id !== deleteId);
 
     localStorage.setItem("cart", JSON.stringify(updatedCartData));
-    alert("Product removed from cart");
+    // alert();
+    toast.error("Product removed from cart");
     func();
   };
 
@@ -128,6 +130,11 @@ const Cart = () => {
   // };
 
   const handleOpen = () => {
+    let found = JSON.parse(localStorage.getItem("cart"));
+    if(found.length<=0){
+      toast.error("cart is empty");
+      return
+    }
     setOpen((prev) => !prev);
   };
 
@@ -223,6 +230,9 @@ try {
 
   return (
     <>
+
+
+
       {/* modal for check out form start*/}
       {open && (
         <div className="modal_outer absolute lg:w-[500px] h-auto p-4 z-1  top-[25%] left-[35%] bg-gray-200">

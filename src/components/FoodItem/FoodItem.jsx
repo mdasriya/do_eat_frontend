@@ -1,13 +1,18 @@
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./FoodItem.css";
 import { assets } from "../../assets/assets";
 import { StoreContext } from "../../context/StoreContext";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from "axios";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+// import axios from "axios";
 
 const FoodItem = ({ id, title, price, description, image,category,discount,cutprice }) => {
+  const [visi, setVisi] = useState(false)
+  const [render, setRender] = useState(false)
+  const navigate = useNavigate()
   // const { cartItems, addToCart, removeFromCart } = useContext(StoreContext);
 
   // const handleAddToCart = (e) => {
@@ -81,8 +86,15 @@ const FoodItem = ({ id, title, price, description, image,category,discount,cutpr
 
 //     }
 //   };
+
+const renderComponent = () => {
+  setRender(prev => !prev)
+}
+
+
 const handleCartData = async () => {
   // const token = localStorage.getItem("token");
+  renderComponent()
   console.log({ id, title, price, description, image });
 
   // if (!token) {
@@ -121,8 +133,26 @@ const handleCartData = async () => {
  
 };
 
+useEffect(()=> {
+  let found = JSON.parse(localStorage.getItem("cart"));
+  if(found?.length>0){
+    setVisi(true)
+  }else{
+    setVisi(false)
+  }
+},[render])
+
   return (
-    <>
+    <DIV>
+   {visi &&  <div className="checkout_button absolute left-[90%] ">
+    {/* <button className="fixed border-2 border-black bg-black text-white p-1 rounded-md">Checkout</button> */}
+    <button onClick={()=>navigate("/cart")} type="button" className="checkout_button  fixed z-10 text-white bg-black hover:bg-black focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+CHECKOU
+<svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+</svg>
+</button>
+    </div>}
     <div className="food-item relative overflow-hidden">
       <div className="food-item-img-container">
         <img className="food-item-image"  src={image} alt="" />
@@ -147,8 +177,22 @@ const handleCartData = async () => {
 </div>
     </div>
 
-    </>
+    </DIV>
   );
 };
 
 export default FoodItem;
+
+const DIV = styled.div`
+  /* Basic Mobile View Media Query */
+@media (max-width: 767px) {
+    /* Your mobile-specific styles go here */
+    .checkout_button{
+      left: 65%;
+      top: 83%;
+      /* border: 2px solid red; */
+    }
+}
+
+
+`

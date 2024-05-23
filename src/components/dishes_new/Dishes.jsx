@@ -254,7 +254,7 @@ export default function Dishes() {
           </Dialog>
         </Transition.Root>
         <div className="explore-menu -mt-16" id="explore-menu">
-          <h1 className="text-2xl">Explore our menu</h1>
+          <h1 className="text-2xl">Explore Our Menu</h1>
 
           {/* menu div code start here */}
           <div className="explore-menu-list">
