@@ -13,6 +13,9 @@ const MyNavbar = () => {
   const [isAuth, setIsAuth] = useState(false);
 const [resStatus, setResStatus] = useState(null)
 
+const val = useContext(StoreContext)
+const {countcart, cartValue} = val
+// console.log("cartvalueeee", cartValue)
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -55,7 +58,7 @@ const [resStatus, setResStatus] = useState(null)
 
   useEffect(()=>{
     fetchstatus()
-  },[])
+  },[countcart])
 
   return (
     <div>
@@ -274,10 +277,10 @@ const [resStatus, setResStatus] = useState(null)
                       data-original="#000000"
                     ></path>
                   </svg>
-                  {/* <span className="absolute left-auto -ml-1 top-0 rounded-full bg-gray-800 px-1 py-0 text-xs text-white">
-                    0
-                  </span> */}
-                  <span className="text-white ml-1">Cart</span>
+                  <span className="absolute left-auto -ml-1 top-0 rounded-full bg-gray-800 px-1 py-0 text-xs text-white">
+                   {countcart}
+                  </span>
+                  {/* <span className="text-white ml-1">Cart</span> */}
                 </span>
               </Link>
               {resStatus ? (

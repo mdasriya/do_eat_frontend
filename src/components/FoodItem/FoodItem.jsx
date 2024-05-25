@@ -13,7 +13,8 @@ const FoodItem = ({ id, title, price, description, image,category,discount,cutpr
   const [visi, setVisi] = useState(false)
   const [render, setRender] = useState(false)
   const navigate = useNavigate()
-  // const { cartItems, addToCart, removeFromCart } = useContext(StoreContext);
+  const val = useContext(StoreContext)
+  const {countcart, cartValue} = val
 
   // const handleAddToCart = (e) => {
   //   e.preventDefault(); // Prevent default behavior
@@ -94,6 +95,7 @@ const renderComponent = () => {
 
 const handleCartData = async () => {
   // const token = localStorage.getItem("token");
+  
   renderComponent()
   console.log({ id, title, price, description, image });
 
@@ -129,7 +131,7 @@ const handleCartData = async () => {
     localStorage.setItem("cart", JSON.stringify(found));
     toast.success("product added to cart");
   }
-
+  cartValue()
  
 };
 

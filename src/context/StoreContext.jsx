@@ -4,7 +4,7 @@ import { food_list } from "../assets/assets";
 export const StoreContext = createContext(null);
 
 const StorecontextProvider = (props) => {
-
+  const [countcart, setCount] = useState(0)
   const [cartItems,setCartItems] = useState({});
 
     const addToCart = (itemId) => {
@@ -31,13 +31,22 @@ const StorecontextProvider = (props) => {
     return totalAmount;
   }
 
+
+  function cartValue (){
+  const localCart = JSON.parse(localStorage.getItem("cart"))
+   setCount(localCart.length)
+
+  }
+
   const contextValue = {
     food_list,
     cartItems,
     setCartItems,
     addToCart,
     removeFromCart,
-    getTotalCartAmount
+    getTotalCartAmount,
+    cartValue,
+    countcart
   };
   return (
     <StoreContext.Provider value={contextValue}>

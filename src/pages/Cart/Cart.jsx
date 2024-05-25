@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Cart.css";
-// import { StoreContext } from "../../context/StoreContext";
+import { StoreContext } from "../../context/StoreContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -25,8 +25,8 @@ const Cart = () => {
   const [data, setData] = useState([]);
   const [resStatus, setResStatus] = useState(null)
   const [orderLoading, setOrderLoading] = useState(false)
-  // const { cartItems, food_list, removeFromCart, getTotalCartAmount } =
-  //   useContext(StoreContext);
+  const val = useContext(StoreContext)
+  const {countcart, cartValue} = val
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   
@@ -107,6 +107,8 @@ const Cart = () => {
     localStorage.setItem("cart", JSON.stringify(updatedCartData));
     // alert();
     toast.error("Product removed from cart");
+    cartValue()
+    
     func();
   };
 
