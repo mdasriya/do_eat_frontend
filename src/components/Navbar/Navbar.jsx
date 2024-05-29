@@ -28,10 +28,21 @@ const {countcart, cartValue} = val
 //   }
 //  }
 
+const fetchstatus = () => {
+  axios.get("https://do-eat-backen.onrender.com/resturant")
+  .then((res)=> {
+  // console.log(res.data)
+  setResStatus(res.data[0].resturant)
+
+  }).catch((error)=> {
+    console.log(error.message)
+  })
+}
+
  useEffect(() => {
   const currentTime = new Date().getHours();
   setIsAuth(currentTime >= 11 && currentTime < 23);
-  console.log(currentTime)
+  
 }, []);
 
 
@@ -44,24 +55,18 @@ const {countcart, cartValue} = val
     });
   }, []);
 
-  const fetchstatus = () => {
-    axios.get("https://do-eat-backen.onrender.com/resturant")
-    .then((res)=> {
-    // console.log(res.data)
-    setResStatus(res.data[0].resturant)
-   
-    
-    }).catch((error)=> {
-      console.log(error.message)
-    })
-  }
+ 
+
+
 
   useEffect(()=>{
     fetchstatus()
+    cartValue()
+
   },[countcart])
 
   return (
-    <div>
+    <div className="">
       <header className="flex border-b  border-orange-400 py-4 sm:px-8 px-6 font-[sans-serif] min-h-[80px] tracking-wide relative z-50 bg-orange-500">
         <div className="flex flex-wrap items-center lg:gap-y-2 gap-2 w-full">
           <Link to="/">
@@ -225,8 +230,8 @@ const {countcart, cartValue} = val
 
           <div className="flex gap-x-6 gap-y-4 ml-auto">
             <Link
-              to="/search"
-              onClick={() => setMenu("search")}
+             
+              // onClick={() => setMenu("search")}
               className={menu === "search" ? "active" : ""}
             >
               <div
@@ -278,7 +283,7 @@ const {countcart, cartValue} = val
                     ></path>
                   </svg>
                   <span className="absolute left-auto -ml-1 top-0 rounded-full bg-gray-800 px-1 py-0 text-xs text-white">
-                   {countcart}
+                   {countcart ? countcart : 0}
                   </span>
                   {/* <span className="text-white ml-1">Cart</span> */}
                 </span>

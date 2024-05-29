@@ -133,7 +133,7 @@ const Cart = () => {
 
   const handleOpen = () => {
     let found = JSON.parse(localStorage.getItem("cart"));
-    if(found.length<=0){
+    if(found.length <= 0 || undefined){
       toast.error("cart is empty");
       return
     }
@@ -146,6 +146,7 @@ const Cart = () => {
   };
 
   const handleOrderProduct = async () => {
+  
     setOrderLoading(true)
     let finalData = {
       ...formData,
@@ -164,7 +165,7 @@ try {
   setOrderLoading(false)
     localStorage.clear();
     setFormData(initialform);
-    handleOpen();
+    setOpen(false);
     func();
     navigate("/")
     //  await handledeleteCartData(data)

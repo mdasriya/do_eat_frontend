@@ -34,8 +34,7 @@ const StorecontextProvider = (props) => {
 
   function cartValue (){
   const localCart = JSON.parse(localStorage.getItem("cart"))
-   setCount(localCart.length)
-
+   setCount(localCart?.length)
   }
 
   const contextValue = {
