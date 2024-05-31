@@ -36,6 +36,8 @@
     cursor: pointer;
     border-radius: 50%;
     transition: 0.1s;
+    object-fit: cover;
+
 }
 .explore-menu-list-item p{
     margin: 10px 0px;
@@ -86,3 +88,4 @@
   .animate-blink {
     animation: blink 2s infinite;
   }
+

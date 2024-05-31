@@ -265,7 +265,7 @@ export default function Dishes() {
                   key={index}
                   className="explore-menu-list-item"
                 >
-                  <img src={item.image} alt="" />
+                  <img className="menu_image" src={item.image} alt="" />
                   <p>{item.title}</p>
                 </div>
               );
