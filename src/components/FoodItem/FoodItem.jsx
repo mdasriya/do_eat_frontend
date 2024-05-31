@@ -156,7 +156,7 @@ CHECKOUT
 </button>
     </div>}
     <div className="food-item relative overflow-hidden">
-      <div className="food-item-img-container">
+      <div className="food-item-img-container cursor-pointer">
         <img className="food-item-image"  src={image} alt="" />
       </div>
       <div className="food-item-info">
@@ -172,7 +172,7 @@ CHECKOUT
         </div>
 
         <p className="food-item-price">{category}</p>
-        <div className="text-center"><button className="border-2 border-black bg-black text-white p-1 border-r-10" onClick={handleCartData}>Add To Cart</button></div>
+        <div className="text-center"><button className="border-2 rounded-md border-black bg-black text-white p-1 border-r-10" onClick={handleCartData}>Add To Cart</button></div>
       </div>
       <div className="absolute top-4 bg-green-600 items-center left-[82%]  w-[59px] h-[30px]  text-white rounded-md text-center">
 <p className="mt-1">{discount}%{" "}off</p>

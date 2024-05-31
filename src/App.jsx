@@ -1,18 +1,9 @@
 
 import React, { useState } from "react";
 import Navbar from "./components/Navbar/Navbar";
-// import { Route, Routes } from "react-router-dom";
-// import Home from "./pages/Home/Home";
-// import Search from "./pages/Search/Search";
-// import Cart from "./pages/Cart/Cart";
-// import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
-// import Contact from "./pages/contact/Contact";
 import Footer from "./components/Footer/Footer";
-// import LoginPopup from "./components/LoginPopup/LoginPopup";
-// import Dishes from "./components/dishes_new/Dishes";
-// import SignIn from "./components/SignIn/SignIn";
-// import SignUp from "./components/Signup/SignUp";
 import { ToastContainer } from "react-toastify";
+import { Helmet } from 'react-helmet-async';
 import MainRoutes from "./components/MainRoutes/MainRoutes";
 
 const App = () => {
@@ -20,6 +11,10 @@ const App = () => {
   return (
     <>
       <div className="app">
+      <Helmet>
+        <title>Do Eat - Food Delivery App</title>
+        <meta name="description" content="Do Eat is your go-to app for fast and reliable food delivery." />
+      </Helmet>
       <ToastContainer />
         <Navbar/>
         <MainRoutes />
