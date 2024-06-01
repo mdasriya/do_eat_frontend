@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./Home.css";
 import Header from "../../components/Header/Header";
 import ExploreMenu from "../../components/ExploreMenu/ExploreMenu";
-import FoodDisplay from "../../components/FoodDisplay/FoodDisplay";
 import AppDownload from "../../components/AppDownload/AppDownload";
 // import useWindowSize from 'react-use/lib/useWindowSize'
 import { useWindowSize } from "react-use";
@@ -17,7 +16,7 @@ const Home = () => {
   const width = window.innerWidth -27;
 
   const confettiProps = {
-    width: width - 27,
+    width: width ,
     height:2000,
     className: "enogration",
     style: { position: 'absolute', zIndex: '999' }
@@ -34,7 +33,7 @@ const Home = () => {
 
     
     <div>
-  {todayDate == "2024-05-11" && (<Confetti {...confettiProps} />)}      
+  {todayDate == "2024-06-01" && (<Confetti {...confettiProps} />)}      
       <Header />
       <ExploreMenu category={category} setCategory={setCategory} />
       {/* <FoodDisplay category={category} /> */}
