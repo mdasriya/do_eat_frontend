@@ -14,7 +14,10 @@ const Header = () => {
         <h2 className="text-white text-2xl md:text-3xl lg:text-4xl xl:text-5xl mt-[20px]">Order your favourite food here</h2>
       <Link to={"/menu"}> <button className="mt-10 bg-white text-black px-4 py-2 rounded-lg "><a href="#explore-menu">View Menu</a></button></Link> 
       </div>
-      <marquee className="absolute top-0 text-white text-xl bg-red-600">🚀 Experience the ultimate food journey with our revolutionary web app! Don't miss out on the excitement! 🎉 #FoodieRevolution 🍽️ Order your favorite dishes now and savor the flavors like never before!</marquee>
+      <marquee className="absolute top-0 text-white text-xl bg-red-600">
+        {/* 🚀 Experience the ultimate food journey with our revolutionary web app! Don't miss out on the excitement! 🎉 #FoodieRevolution 🍽️ Order your favorite dishes now and savor the flavors like never before! */}
+        🎉 Welcome to the grand launch of Do Eat - Your go-to app for fast and reliable food delivery! Enjoy exclusive discounts and promotions today! 🍔🍕🌮 Order now and satisfy your cravings with Do Eat! 🚀🎉
+      </marquee>
 
     </div>
   );
