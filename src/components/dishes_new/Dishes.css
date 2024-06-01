@@ -19,7 +19,7 @@
     margin: auto;
     gap: 50px;
     text-align: center;
-    /* padding: 20px 5px; */
+    padding: 20px 5px;
     overflow-x: scroll;
     /* border: 1px solid red; */
 }
@@ -58,15 +58,25 @@
 }
 
 @media (max-width:1050px) {
-    
-      
-    
-}
-@media (max-width:760px) {
-    
-   
-   
-  
+    .explore-menu{
+        padding-top: 1.5rem;
+        gap: 17px;
+    }
+    .explore-menu-text{
+        max-width: 100%;
+        font-size: 14px;
+    }   
+    .explore-menu-list{
+        padding: 20px 3px;
+        gap: 9px;
+        width: 90%;
+    }
+    .explore-menu-list-item img{
+        cursor: none;
+    }
+    .explore-menu-list-item p{
+        cursor: none;
+    }
 }
 
 @keyframes blink {

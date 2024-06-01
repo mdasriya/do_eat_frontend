@@ -13,7 +13,7 @@ const Home = () => {
   const today = new Date();
   const todayDate = today.toISOString().split('T')[0];
   
-  const width = window.innerWidth -27;
+  const width = window.innerWidth;
 
   const confettiProps = {
     width: width ,
