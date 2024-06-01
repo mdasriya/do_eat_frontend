@@ -351,7 +351,7 @@ try {
               />
             </div>
             <div className="place-order-right text-center mt-2 border-2 border-orange-400 bg-orange-400 p-2 font-bold text-white">
-    {orderLoading ? <button>Please wait ...</button> : <button onClick={handleOrderProduct}>PROCEED TO PAYMENT</button>}     
+    {orderLoading ? <button>Please wait ...</button> : <button onClick={handleOrderProduct}>Place Your Order</button>}     
             </div>
           </div>
         </div>
