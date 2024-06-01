@@ -53,6 +53,10 @@
 }
 
 @media (max-width: 750px) {
+  /* .menu_button{
+    height: 70px;
+ 
+  } */
   .header-contents {
     bottom: 70%;
     left: 5vw;
@@ -64,7 +68,17 @@
     display: none;
   }
   .header-contents button {
-    padding: 1.5vw 2vw;
-    font-size: max(1vw, 12px);
+    /* padding: 1.5vw 2vw;
+    font-size: max(1vw, 12px); */
+    font-size: x-large;
+    background-color: orangered;
+    color: white;
+  }
+  .header-contents button:hover {
+    /* padding: 1.5vw 2vw;
+    font-size: max(1vw, 12px); */
+    font-size: x-large;
+    background-color: orangered;
+    color: white;
   }
 }

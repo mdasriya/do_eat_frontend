@@ -12,7 +12,7 @@
     border-radius: 15px 15px 0px 0px;
     /* border: 1px solid red; */
     height: 220px;
-    object-fit: contain;
+    /* object-fit: contain; */
 }
 .food-item-info{
     padding: 20px;
