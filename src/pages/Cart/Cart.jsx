@@ -18,7 +18,7 @@ const initialform = {
 };
 
 const Cart = () => {
-  // const [isAuth, setIsAuth] = useState(false)
+ 
   const [update, setUpdate] = useState(false);
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState(initialform);
@@ -49,24 +49,7 @@ const Cart = () => {
     }
   };
 
-  // const getCartProduct = () => {
-  //   return axios
-  //     .get("https://do-eat-backen.onrender.com/cart",
-  //     {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //       },
-  //     }
-  //   )
-  //     .then((res) => {
-  //       const cartData = res.data.map((item) => ({ ...item, quantity: 1 }));
-  //       setData(cartData);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
+ 
 
   const handleQuantityIncrement = (id) => {
     const updatedItems = data.map((item) => {
@@ -97,7 +80,7 @@ const Cart = () => {
     let cartData = JSON.parse(localStorage.getItem("cart"));
 
     if (!cartData || cartData.length === 0) {
-      // alert("Cart is empty");
+      
       toast.error("Cart is empty");
       return;
     }
@@ -112,24 +95,7 @@ const Cart = () => {
     func();
   };
 
-  // const handleDelete = async (id) => {
-  //   try {
-  //     const response = await axios.delete(
-  //       `https://do-eat-backen.onrender.com/cart/delete/${id}`,
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //         },
-  //       }
-  //     );
-  //     if (response) {
-  //       setUpdate((prev) => !prev);
-  //     }
-  //   } catch (error) {
-  //     func();
-  //   }
-  // };
+  
 
   const handleOpen = () => {
     let found = JSON.parse(localStorage.getItem("cart"));
@@ -145,8 +111,13 @@ const Cart = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+
+
   const handleOrderProduct = async () => {
-  
+  if(!formData.firstName || !formData.lastName || !formData.city || !formData.country || !formData.email || !formData.phone || !formData.state || !formData.street || !formData.zipcode){
+    toast.error("fill all input");
+    return;
+  }
     setOrderLoading(true)
     let finalData = {
       ...formData,
@@ -168,7 +139,7 @@ try {
     setOpen(false);
     func();
     navigate("/")
-    //  await handledeleteCartData(data)
+    
   }
 } catch (error) {
   console.log(error.message)
@@ -177,46 +148,18 @@ try {
    
   };
 
-  // cart deleted function
-  // const handledeleteCartData = async (data) => {
-  //   return axios
-  //     .post('https://do-eat-backen.onrender.com/cart/order/delete', data, {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         Authorization: `Bearer ${localStorage.getItem('token')}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       if (res.data.state) {
-  //         navigate("/")
-  //       } else {
-  //         alert("something went wrong while deleting cartdata")
-  //       }
-
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
+ 
 
 
   const handleAlert = () => {
     toast.error("Resturant close unable to take order")
   }
 
-  // useEffect(() => {
-  //   const currentTime = new Date().getHours();
-  //   setIsAuth(currentTime >= 11 && currentTime < 23);
-  //   console.log(currentTime)
-  // }, []);
 
   const fetchstatus = () => {
     axios.get("https://do-eat-backen.onrender.com/resturant")
     .then((res)=> {
-    // console.log(res.data)
     setResStatus(res.data[0].resturant)
-   
-    
     }).catch((error)=> {
       console.log(error.message)
     })
@@ -229,7 +172,7 @@ try {
     getCartProduct();
   }, [update]);
 
-// console.log("isAuth", isAuth)
+
 
   return (
     <>
@@ -350,8 +293,8 @@ try {
                 className="block w-full mt-2 rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-200 sm:text-lg sm:leading-6"
               />
             </div>
-            <div className="place-order-right text-center mt-2 border-2 border-orange-400 bg-orange-400 p-2 font-bold text-white">
-    {orderLoading ? <button>Please wait ...</button> : <button onClick={handleOrderProduct}>Place Your Order</button>}     
+            <div className="place-order-right text-center mt-2 border-2 border-orange-400 bg-orange-400  font-bold text-white">
+    {orderLoading ? <button className="w-full  p-2">Please wait ...</button> : <button className="w-full  p-2" onClick={handleOrderProduct}>Place Your Order</button>}     
             </div>
           </div>
         </div>

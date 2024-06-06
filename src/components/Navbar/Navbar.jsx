@@ -75,9 +75,10 @@ const fetchstatus = () => {
             <img
               src={assets.logo}
               alt=""
-              className="logo max-w-[60px] flex flex-wrap hover:scale-110 transition-transform duration-500"
+              className="logo max-w-[50px] flex flex-wrap hover:scale-110 transition-transform duration-500"
             />
           </Link>
+          <span className="ml-3 font-semibold text-white hover:text-white">Menu</span>
 
           <div
             id="collapseMenu"
@@ -263,7 +264,6 @@ const fetchstatus = () => {
             </svg>
             <span className="absolute left-auto -ml-1 top-0 rounded-full bg-red-500 px-1 py-0 text-xs text-white">0</span>
           </span> */}
-
               <Link
                 to="/cart"
                 onClick={() => setMenu("cart")}
@@ -305,7 +305,7 @@ const fetchstatus = () => {
         </button>
       ) : (
         <button
-          className="blinking-button px-3 py-2 text-sm rounded-full text-white uppercase font-bold font-mono border-2 border-red-500 bg-red-500 hover:shadow-lg hover:scale-110 transition-transform duration-300"
+          className="blinking-button px-3 py-2 text-sm ml-4 rounded-full text-white uppercase font-bold font-mono border-2 border-red-500 bg-red-500 hover:shadow-lg hover:scale-110 transition-transform duration-300"
         >
            closed
         </button>
