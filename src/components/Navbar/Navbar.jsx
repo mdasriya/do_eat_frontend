@@ -78,7 +78,7 @@ const fetchstatus = () => {
               className="logo max-w-[50px] flex flex-wrap hover:scale-110 transition-transform duration-500"
             />
           </Link>
-          <span className="ml-3 font-semibold text-white hover:text-white">Menu</span>
+        <Link to={"/menu"}><span className="ml-3 font-semibold text-white hover:text-white">Menu</span></Link>  
 
           <div
             id="collapseMenu"
