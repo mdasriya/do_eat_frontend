@@ -440,6 +440,7 @@ export default function Dishes() {
                     <>
                       {dishes.length > 0 ? (
                         <FoodItem
+                        quantity1={item.quantity}
                           key={index}
                           cutprice={item.cutprice}
                           discount={item.discount}

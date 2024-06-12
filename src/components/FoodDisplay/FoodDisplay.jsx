@@ -42,6 +42,7 @@ fetchDishes()
       <h2>Top dishes near you</h2>
       <div className="food-display-list">
         {currentProducts.map((item, index) => {
+          console.log("quan", item.quantity)
           if (category === "All" || category === item.category) {
             return (
               <FoodItem
@@ -51,6 +52,7 @@ fetchDishes()
                 description={item.description}
                 price={item.price}
                 image={item.image}
+                quantity1={item.quantity}
               />
             );
           }

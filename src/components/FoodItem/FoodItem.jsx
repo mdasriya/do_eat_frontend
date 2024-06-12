@@ -9,7 +9,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 // import axios from "axios";
 
-const FoodItem = ({ id, title, price, description, image,category,discount,cutprice }) => {
+const FoodItem = ({ id, title, price, description,quantity1, image,category,discount,cutprice }) => {
   const [visi, setVisi] = useState(false)
   const [render, setRender] = useState(false)
   const navigate = useNavigate()
@@ -143,7 +143,7 @@ useEffect(()=> {
     setVisi(false)
   }
 },[render])
-
+console.log(quantity1)
   return (
     <DIV>
    {visi &&  <div className="checkout_button absolute left-[90%] ">
@@ -172,7 +172,10 @@ CHECKOUT
         </div>
 
         <p className="food-item-price">{category}</p>
-        <div className="text-center"><button className="border-2 rounded-md border-black bg-black text-white p-1 border-r-10" onClick={handleCartData}>Add To Cart</button></div>
+        <div className="text-center">{quantity1 === 0 ? <button className="border-2 cursor-not-allowed rounded-md border-black bg-black text-white p-1 border-r-10" disabled>Add To Cart</button>:<button className="border-2 rounded-md border-black bg-black text-white p-1 border-r-10" onClick={handleCartData}>Add To Cart</button>} 
+      {quantity1 === 0  && <button className="border-2 rounded-md border-red bg-red-600 text-white p-1 ml-2 border-r-10">Out of Stock</button>}  
+        
+        </div>
       </div>
       <div className="absolute top-4 bg-green-600 items-center left-[82%]  w-[59px] h-[30px]  text-white rounded-md text-center">
 <p className="mt-1">{discount}%{" "}off</p>
