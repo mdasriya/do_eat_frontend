@@ -65,7 +65,7 @@ const FoodItem = ({ id, title, price, description,quantity1, image,category,disc
 
 //     try {
 //       const response = await axios.post(
-//         'https://do-eat-backen.onrender.com/cart/create',
+//         'https://doeatsbackend.vercel.app/cart/create',
 //         finalData,
 //         {
 //           headers: {
@@ -143,7 +143,7 @@ useEffect(()=> {
     setVisi(false)
   }
 },[render])
-console.log(quantity1)
+
   return (
     <DIV>
    {visi &&  <div className="checkout_button absolute left-[90%] ">

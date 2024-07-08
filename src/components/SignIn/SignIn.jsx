@@ -20,7 +20,7 @@ export default function SignIn() {
         e.preventDefault()
       
         const data = { email, pass }
-        axios.post("https://do-eat-backen.onrender.com/user/login", data)
+        axios.post("https://doeatsbackend.vercel.app/user/login", data)
           .then(res => {
            
             localStorage.setItem("token", res.data.token)
