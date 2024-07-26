@@ -8,6 +8,8 @@ import SignUp from '../Signup/SignUp'
 import Cart from '../../pages/Cart/Cart'
 import PlaceOrder from '../../pages/PlaceOrder/PlaceOrder'
 import Contact from '../../pages/contact/Contact'
+import PrivacyPolicy from '../../pages/PrivacyPolicy'
+import TermCondi from '../../pages/TermCondi'
 
 const MainRoutes = () => {
   return (
@@ -21,6 +23,8 @@ const MainRoutes = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/order" element={<PlaceOrder />} />
           <Route path="/contact" element={<Contact />} /> 
+          <Route path="/privacy_policy" element={<PrivacyPolicy />} /> 
+          <Route path="/term&condition" element={<TermCondi />} /> 
     </Routes>
   )
 }
