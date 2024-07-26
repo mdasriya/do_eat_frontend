@@ -11,7 +11,7 @@ const PrivacyPolicy = () => {
 
 
                     <h1 className=' text-3xl font-bold text-center'>Privacy Policy</h1>
-                    <p className=' text-blue-700 font-semibold'>Last Updated: 25/05/2024</p>
+                    {/* <p className=' text-blue-700 font-semibold'>Last Updated: 25/05/2024</p> */}
 
                     <p>
                         Welcome to doeats. We value your privacy and are committed
