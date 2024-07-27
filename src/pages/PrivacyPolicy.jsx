@@ -101,7 +101,7 @@ const PrivacyPolicy = () => {
                     </p>
                     <address className=' mt-16 font-semibold'>
                         doeats <br />
-                        7744055664 <br/>
+                        8080125075 <br/>
                         doeat2024@gmail.com
                     </address>
                 </p>
