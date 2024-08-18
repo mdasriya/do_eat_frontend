@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Home.css";
 import Header from "../../components/Header/Header";
 import ExploreMenu from "../../components/ExploreMenu/ExploreMenu";
@@ -7,7 +7,9 @@ import AppDownload from "../../components/AppDownload/AppDownload";
 import { useWindowSize } from "react-use";
 
 import Confetti from 'react-confetti'
+
 const Home = () => {
+
   const [category, setCategory] = useState("All");
   const {  height } = useWindowSize()
   const today = new Date();
@@ -29,15 +31,18 @@ const Home = () => {
     confettiProps.numberOfPieces = 200;
   }
 
+
+
   return (
 
     
     <div>
-  {todayDate == "2024-06-01" && (<Confetti {...confettiProps} />)}      
+  {todayDate == "2024-06-01" && (<Confetti {...confettiProps} />)} 
       <Header />
       <ExploreMenu category={category} setCategory={setCategory} />
       {/* <FoodDisplay category={category} /> */}
       <AppDownload/>
+
     </div>
   );
 };
