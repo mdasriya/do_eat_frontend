@@ -181,7 +181,7 @@ try {
 
       {/* modal for check out form start*/}
       {open && (
-        <div className="modal_outer absolute lg:w-[500px] h-auto p-4 z-1  top-[25%] left-[35%] bg-gray-200">
+        <div className="modal_outer absolute lg:w-[500px] h-auto p-4 z-1 z-[999]  top-[25%] left-[35%] bg-gray-200">
           <div className="modal_outer_1">
             <div className="">
               <div className="flex justify-between">
