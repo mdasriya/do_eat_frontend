@@ -14,7 +14,7 @@ const navigate = useNavigate()
 
 
 const fetchDishes = () =>  {
-  axios.get("https://doeatsbackend.vercel.app/yantra")
+  axios.get("https://do-eats-backend.vercel.app/yantra")
   .then((res)=> {
     console.log(res.data)
     setDishes(res.data)

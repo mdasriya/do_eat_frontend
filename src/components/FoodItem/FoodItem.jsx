@@ -65,7 +65,7 @@ const FoodItem = ({ id, title, price, description,quantity1, image,category,disc
 
 //     try {
 //       const response = await axios.post(
-//         'https://doeatsbackend.vercel.app/cart/create',
+//         'https://do-eats-backend.vercel.app/cart/create',
 //         finalData,
 //         {
 //           headers: {

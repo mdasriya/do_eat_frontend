@@ -37,7 +37,7 @@ export default function Dishes() {
     setFetchLoading(true);
 
     axios
-      .get("https://doeatsbackend.vercel.app/yantra")
+      .get("https://do-eats-backend.vercel.app/yantra")
       .then((res) => {
         console.log(res.data);
         setDishes(res.data);
@@ -113,7 +113,7 @@ export default function Dishes() {
 
   const fetchMenu = () => {
     axios
-      .get("https://doeatsbackend.vercel.app/menu")
+      .get("https://do-eats-backend.vercel.app/menu")
       .then((res) => {
         console.log("menu", res.data);
         setMenuItem(res.data);

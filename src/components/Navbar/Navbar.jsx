@@ -31,7 +31,7 @@ const {countcart, cartValue} = val
 
 const fetchstatus = () => {
   setRestoLoader(true)
-  axios.get("https://doeatsbackend.vercel.app/resturant")
+  axios.get("https://do-eats-backend.vercel.app/resturant")
   .then((res)=> {
   // console.log(res.data)
   setResStatus(res.data[0].resturant)

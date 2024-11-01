@@ -127,7 +127,7 @@ const Cart = () => {
 try {
   
   const res = await axios.post(
-    "https://doeatsbackend.vercel.app/order/create",
+    "https://do-eats-backend.vercel.app/order/create",
     finalData
   );
 
@@ -157,7 +157,7 @@ try {
 
 
   const fetchstatus = () => {
-    axios.get("https://doeatsbackend.vercel.app/resturant")
+    axios.get("https://do-eats-backend.vercel.app/resturant")
     .then((res)=> {
     setResStatus(res.data[0].resturant)
     }).catch((error)=> {

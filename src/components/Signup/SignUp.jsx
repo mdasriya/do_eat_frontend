@@ -16,7 +16,7 @@ const navigate = useNavigate()
        
         let data = { name, email, pass };
         axios
-          .post("https://doeatsbackend.vercel.app/user/register", data)
+          .post("https://do-eats-backend.vercel.app/user/register", data)
           .then((res) => {
           
             if (res.data.state) {
